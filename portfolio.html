@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ========================================================= -->
+<!--  EDITÁ ESTO: el título que aparece en la pestaña del navegador -->
+<title>Nico — Roblox Developer</title>
+<!-- ========================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  /* =========================================================
+     PALETA Y VARIABLES — cambiá los colores acá si querés
+     ========================================================= */
+  :root{
+    --bg:        #0D0E17;   /* fondo principal (casi negro azulado) */
+    --surface:   #161826;   /* tarjetas */
+    --surface-2: #1E2133;   /* tarjetas resaltadas / hover */
+    --text:      #EDEFF7;   /* texto principal */
+    --muted:     #8A8FA8;   /* texto secundario */
+    --accent:    #5B8CFF;   /* color de marca (azul) */
+    --accent-2:  #FF7A45;   /* color de acento (coral) */
+    --border:    rgba(255,255,255,0.08);
+    --border-2:  rgba(255,255,255,0.14);
+    --radius:    16px;
+    --maxw:      1080px;
+
+    --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+    --font-body:    "Inter", system-ui, sans-serif;
+    --font-mono:    "Space Mono", ui-monospace, monospace;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{ width:100%; max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+
+  /* etiqueta tipo "consola" que se repite arriba de cada sección */
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--accent); display:inline-flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{ content:"["; color:var(--muted); }
+  .eyebrow::after{ content:"]"; color:var(--muted); }
+
+  h1,h2,h3{ font-family:var(--font-display); font-weight:800; line-height:1.05; letter-spacing:-.02em; }
+
+  /* ======================= NAV ======================= */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(12px);
+    background:rgba(13,14,23,.72);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .logo{ font-family:var(--font-display); font-weight:800; font-size:1.15rem; display:flex; align-items:center; gap:10px; }
+  .logo .dot{ width:10px; height:10px; border-radius:3px; background:var(--accent); box-shadow:0 0 16px var(--accent); }
+  .nav-links{ display:flex; gap:28px; align-items:center; }
+  .nav-links a{ font-size:.92rem; color:var(--muted); transition:color .2s; }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-cta{
+    font-family:var(--font-mono); font-size:.8rem;
+    border:1px solid var(--border-2); padding:9px 16px; border-radius:10px;
+    color:var(--text); transition:all .2s;
+  }
+  .nav-cta:hover{ border-color:var(--accent); background:var(--accent); color:#0D0E17; }
+  .menu-btn{ display:none; background:none; border:1px solid var(--border-2); color:var(--text);
+    width:42px; height:42px; border-radius:10px; cursor:pointer; font-size:1.2rem; }
+
+  /* ======================= HERO ======================= */
+  .hero{ position:relative; padding:90px 0 70px; overflow:hidden; }
+  .hero::before{ /* resplandor de fondo */
+    content:""; position:absolute; top:-200px; right:-100px; width:600px; height:600px;
+    background:radial-gradient(circle, rgba(91,140,255,.22), transparent 70%); pointer-events:none;
+  }
+  .hero::after{
+    content:""; position:absolute; bottom:-250px; left:-150px; width:560px; height:560px;
+    background:radial-gradient(circle, rgba(255,122,69,.14), transparent 70%); pointer-events:none;
+  }
+  .hero h1{ font-size:clamp(2.6rem, 7vw, 5.2rem); margin:18px 0 20px; max-width:14ch; }
+  .hero h1 .grad{ background:linear-gradient(100deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hero p.lead{ font-size:clamp(1.05rem,2vw,1.25rem); color:var(--muted); max-width:54ch; margin-bottom:32px; }
+  .btn-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:9px; font-weight:600; font-size:.98rem;
+    padding:13px 24px; border-radius:12px; cursor:pointer; transition:transform .15s, box-shadow .2s, background .2s;
+  }
+  .btn-primary{ background:var(--accent); color:#0D0E17; box-shadow:0 8px 30px rgba(91,140,255,.35); }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 12px 38px rgba(91,140,255,.5); }
+  .btn-ghost{ border:1px solid var(--border-2); color:var(--text); }
+  .btn-ghost:hover{ border-color:var(--accent); transform:translateY(-2px); }
+
+  /* fila de stats del hero */
+  .stats{ display:flex; gap:40px; margin-top:54px; flex-wrap:wrap; }
+  .stat .num{ font-family:var(--font-display); font-weight:800; font-size:2.1rem; color:var(--text); }
+  .stat .lbl{ font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+
+  /* ======================= SECCIONES ======================= */
+  section{ padding:70px 0; }
+  .section-head{ margin-bottom:42px; max-width:60ch; }
+  .section-head h2{ font-size:clamp(1.9rem,4vw,2.8rem); margin:14px 0 14px; }
+  .section-head p{ color:var(--muted); font-size:1.05rem; }
+
+  /* ABOUT */
+  .about-grid{ display:grid; grid-template-columns:1.4fr 1fr; gap:40px; align-items:start; }
+  .about-text p{ color:var(--muted); margin-bottom:18px; font-size:1.05rem; }
+  .about-card{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:26px; }
+  .about-card h3{ font-size:1.05rem; margin-bottom:16px; }
+  .about-card ul{ list-style:none; display:flex; flex-direction:column; gap:12px; }
+  .about-card li{ display:flex; justify-content:space-between; font-size:.95rem; color:var(--muted); padding-bottom:12px; border-bottom:1px solid var(--border); }
+  .about-card li:last-child{ border:none; padding-bottom:0; }
+  .about-card li span:last-child{ color:var(--text); font-family:var(--font-mono); font-size:.85rem; }
+
+  /* SKILLS */
+  .skills{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  .skill{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:26px; transition:transform .2s, border-color .2s, background .2s; }
+  .skill:hover{ transform:translateY(-4px); border-color:var(--border-2); background:var(--surface-2); }
+  .skill .ico{ width:46px; height:46px; border-radius:12px; display:grid; place-items:center; font-size:1.4rem;
+    background:linear-gradient(135deg, rgba(91,140,255,.2), rgba(255,122,69,.15)); margin-bottom:18px; }
+  .skill h3{ font-size:1.15rem; margin-bottom:10px; }
+  .skill p{ color:var(--muted); font-size:.93rem; }
+
+  /* PROJECTS */
+  .projects{ display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+  .card{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;
+    transition:transform .2s, border-color .2s; display:flex; flex-direction:column; }
+  .card:hover{ transform:translateY(-5px); border-color:var(--accent); }
+  .card .thumb{ aspect-ratio:16/9; background:linear-gradient(135deg,var(--surface-2),#0a0b13);
+    display:grid; place-items:center; position:relative; overflow:hidden; }
+  .card .thumb img{ width:100%; height:100%; object-fit:cover; }
+  .card .thumb .placeholder{ font-family:var(--font-mono); color:var(--muted); font-size:.8rem; }
+  .card .badge{ position:absolute; top:12px; left:12px; font-family:var(--font-mono); font-size:.68rem;
+    text-transform:uppercase; letter-spacing:.1em; background:rgba(13,14,23,.8); border:1px solid var(--border-2);
+    padding:5px 10px; border-radius:8px; }
+  .card-body{ padding:22px; display:flex; flex-direction:column; gap:14px; flex:1; }
+  .card-body h3{ font-size:1.3rem; }
+  .card-body p{ color:var(--muted); font-size:.95rem; flex:1; }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{ font-family:var(--font-mono); font-size:.72rem; color:var(--accent);
+    border:1px solid var(--border-2); padding:4px 10px; border-radius:7px; }
+  .card-stats{ display:flex; gap:20px; padding-top:14px; border-top:1px solid var(--border); }
+  .card-stats div{ font-size:.85rem; color:var(--muted); }
+  .card-stats div b{ color:var(--text); font-family:var(--font-display); }
+  .card-link{ font-weight:600; color:var(--accent); font-size:.95rem; display:inline-flex; align-items:center; gap:6px; }
+
+  /* CONTACT */
+  .contact{ text-align:center; background:var(--surface); border:1px solid var(--border);
+    border-radius:24px; padding:64px 32px; position:relative; overflow:hidden; }
+  .contact::before{ content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 50% 0%, rgba(91,140,255,.18), transparent 60%); pointer-events:none; }
+  .contact h2{ font-size:clamp(2rem,5vw,3.2rem); margin:16px 0 16px; position:relative; }
+  .contact p{ color:var(--muted); max-width:48ch; margin:0 auto 32px; position:relative; }
+  .contact-links{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; position:relative; }
+  .clink{ display:inline-flex; align-items:center; gap:9px; padding:13px 22px; border-radius:12px;
+    border:1px solid var(--border-2); font-weight:600; font-size:.95rem; transition:all .2s; }
+  .clink:hover{ border-color:var(--accent); background:var(--accent); color:#0D0E17; transform:translateY(-2px); }
+
+  /* FOOTER */
+  footer{ padding:40px 0; border-top:1px solid var(--border); margin-top:40px; }
+  .foot-inner{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;
+    color:var(--muted); font-size:.88rem; }
+  .foot-inner .logo{ font-size:1rem; }
+
+  /* animación de aparición al hacer scroll */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* foco visible para teclado (accesibilidad) */
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:6px; }
+
+  /* ======================= RESPONSIVE ======================= */
+  @media (max-width:820px){
+    .about-grid{ grid-template-columns:1fr; }
+    .skills{ grid-template-columns:1fr 1fr; }
+    .projects{ grid-template-columns:1fr; }
+  }
+  @media (max-width:560px){
+    .nav-links{ display:none; }
+    .menu-btn{ display:block; }
+    .nav-links.open{ display:flex; position:absolute; top:64px; left:0; right:0; flex-direction:column;
+      background:var(--bg); border-bottom:1px solid var(--border); padding:20px 24px; gap:18px; }
+    .skills{ grid-template-columns:1fr; }
+    .stats{ gap:28px; }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{ animation:none !important; transition:none !important; scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo"><span class="dot"></span> Nico<span style="color:var(--accent)">.dev</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#work">Work</a>
+      <a href="#contact" class="nav-cta">Hire me</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <span class="eyebrow reveal">Roblox Developer</span>
+    <!-- EDITÁ: tu nombre / titular principal -->
+    <h1 class="reveal">I build <span class="grad">polished Roblox experiences</span> people want to play.</h1>
+    <p class="lead reveal">Scripter and systems developer focused on clean, server-authoritative code. I turn game ideas into smooth, well-built experiences — from core mechanics to UI.</p>
+    <div class="btn-row reveal">
+      <a href="#contact" class="btn btn-primary">Get in touch →</a>
+      <a href="#work" class="btn btn-ghost">View my work</a>
+    </div>
+
+    <!-- EDITÁ estos números con los tuyos -->
+    <div class="stats reveal">
+      <div class="stat"><div class="num">3+</div><div class="lbl">Years scripting</div></div>
+      <div class="stat"><div class="num">5</div><div class="lbl">Games shipped</div></div>
+      <div class="stat"><div class="num">100%</div><div class="lbl">Luau / strict</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">About me</span>
+      <h2>Who I am</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <!-- EDITÁ: contá quién sos en 2-3 párrafos -->
+        <p>Hi! I'm Nico, a Roblox developer who loves taking an idea from a blank baseplate to a finished, playable game. I care about code that's readable, modular, and built to scale.</p>
+        <p>My focus is scripting and game systems — combat, data saving, economies, UI logic — using a server-authoritative approach so games stay fair and exploit-resistant. I'm comfortable jumping into an existing project or starting one from zero.</p>
+        <p>I'm always learning and open to commissions, collabs, and long-term team work. If you've got a project, let's talk.</p>
+      </div>
+      <div class="about-card reveal">
+        <h3>Quick facts</h3>
+        <ul>
+          <!-- EDITÁ con tus datos -->
+          <li><span>Role</span><span>Scripter</span></li>
+          <li><span>Language</span><span>Luau (strict)</span></li>
+          <li><span>Timezone</span><span>GMT-3</span></li>
+          <li><span>Status</span><span>Open for work</span></li>
+          <li><span>Payment</span><span>Robux / USD</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SKILLS ===================== -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">What I do</span>
+      <h2>Skills & specialties</h2>
+      <p>Borrá las que no apliquen y agregá las tuyas. Mantené 3 a 6 para que no se vea inflado.</p>
+    </div>
+    <div class="skills">
+      <!-- EDITÁ cada tarjeta: ícono (emoji), título y descripción -->
+      <div class="skill reveal"><div class="ico">⚙️</div><h3>Gameplay scripting</h3><p>Core mechanics, combat, movement, abilities — written in clean, modular Luau.</p></div>
+      <div class="skill reveal"><div class="ico">🛡️</div><h3>Server-authoritative systems</h3><p>Anti-exploit architecture, remote validation, and secure data flow.</p></div>
+      <div class="skill reveal"><div class="ico">💾</div><h3>Data & saving</h3><p>DataStore systems, sessions, economies and cross-server messaging.</p></div>
+      <div class="skill reveal"><div class="ico">🖥️</div><h3>UI / UX logic</h3><p>Responsive interfaces, inventories, shops and HUDs that feel smooth.</p></div>
+      <div class="skill reveal"><div class="ico">🧩</div><h3>Modular OOP</h3><p>Metatable-based, reusable modules that are easy to maintain and extend.</p></div>
+      <div class="skill reveal"><div class="ico">🚀</div><h3>Optimization</h3><p>Profiling, memory management and keeping games running at high FPS.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WORK / PROJECTS ===================== -->
+<section id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Showcase</span>
+      <h2>Selected work</h2>
+      <p>Tus mejores 3-6 proyectos. Poné una imagen real (captura del juego) por cada uno.</p>
+    </div>
+    <div class="projects">
+
+      <!-- ========= TARJETA DE PROYECTO (copiala para agregar más) ========= -->
+      <article class="card reveal">
+        <div class="thumb">
+          <!-- Para poner imagen, descomentá la línea de abajo y borrá el placeholder -->
+          <!-- <img src="images/project1.png" alt="Project name"> -->
+          <span class="placeholder">📷 your-game-screenshot.png</span>
+          <span class="badge">Released</span>
+        </div>
+        <div class="card-body">
+          <h3>Game Name #1</h3>
+          <p>One or two sentences about what you built — the systems, the role you played, what makes it good.</p>
+          <div class="tags">
+            <span class="tag">Luau</span><span class="tag">DataStore</span><span class="tag">OOP</span>
+          </div>
+          <div class="card-stats">
+            <div><b>120K</b> visits</div>
+            <div><b>3.2K</b> likes</div>
+          </div>
+          <a href="#" class="card-link">Play on Roblox →</a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb">
+          <span class="placeholder">📷 your-game-screenshot.png</span>
+          <span class="badge">Released</span>
+        </div>
+        <div class="card-body">
+          <h3>Game Name #2</h3>
+          <p>Describe the project, the systems you wrote, and the result.</p>
+          <div class="tags"><span class="tag">Combat</span><span class="tag">Anti-exploit</span></div>
+          <div class="card-stats">
+            <div><b>45K</b> visits</div>
+            <div><b>1.1K</b> likes</div>
+          </div>
+          <a href="#" class="card-link">Play on Roblox →</a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb">
+          <span class="placeholder">📷 your-game-screenshot.png</span>
+          <span class="badge">Open source</span>
+        </div>
+        <div class="card-body">
+          <h3>Game Name #3</h3>
+          <p>Great place for an open-source prototype — link the GitHub repo so clients can read your code.</p>
+          <div class="tags"><span class="tag">GitHub</span><span class="tag">Prototype</span></div>
+          <div class="card-stats">
+            <div><b>Strict</b> Luau</div>
+            <div><b>Public</b> repo</div>
+          </div>
+          <a href="#" class="card-link">View code →</a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb">
+          <span class="placeholder">📷 your-game-screenshot.png</span>
+          <span class="badge">Commission</span>
+        </div>
+        <div class="card-body">
+          <h3>Game Name #4</h3>
+          <p>Client work you can show off (with permission). Mention what you delivered.</p>
+          <div class="tags"><span class="tag">UI</span><span class="tag">Systems</span></div>
+          <div class="card-stats">
+            <div><b>2 wk</b> delivery</div>
+            <div><b>5★</b> client</div>
+          </div>
+          <a href="#" class="card-link">See details →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact reveal">
+      <span class="eyebrow">Let's work</span>
+      <h2>Have a project in mind?</h2>
+      <p>I'm available for commissions and collaborations. Reach out on any of these and I'll get back to you fast.</p>
+      <div class="contact-links">
+        <!-- EDITÁ los links: poné tus usuarios reales -->
+        <a class="clink" href="#" target="_blank" rel="noopener">💬 Discord: nickitodev</a>
+        <a class="clink" href="https://www.roblox.com/users/563510543/profile" target="_blank" rel="noopener">🎮 Roblox profile</a>
+        <a class="clink" href="#" target="_blank" rel="noopener">🌐 DevForum</a>
+        <a class="clink" href="#" target="_blank" rel="noopener">🐙 GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap foot-inner">
+    <div class="logo"><span class="dot"></span> Nico<span style="color:var(--accent)">.dev</span></div>
+    <div>© <span id="year"></span> Nico — Roblox Developer. Built with HTML &amp; CSS.</div>
+  </div>
+</footer>
+
+<script>
+  // año automático en el footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // menú móvil
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // animación de aparición al hacer scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 6) * 60 + 'ms';
+    io.observe(el);
+  });
+</script>
+</body>
+</html>
