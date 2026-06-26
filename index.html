@@ -301,24 +301,30 @@
 
       <!-- ========= TARJETA DE PROYECTO (copiala para agregar más) ========= -->
       <article class="card reveal">
-        <div class="thumb">
-          <!-- Para poner imagen, descomentá la línea de abajo y borrá el placeholder -->
-         <img src="Battleground.png" alt="Battleground">
-          <span class="badge">Released</span>
-        </div>
-        <div class="card-body">
-          <h3>Game Name #1</h3>
-          <p>One or two sentences about what you built — the systems, the role you played, what makes it good.</p>
-          <div class="tags">
-            <span class="tag">Luau</span><span class="tag">DataStore</span><span class="tag">OOP</span>
-          </div>
-          <div class="card-stats">
-            <div><b>120K</b> visits</div>
-            <div><b>3.2K</b> likes</div>
-          </div>
-          <a href="#" class="card-link">Play on Roblox →</a>
-        </div>
-      </article>
+  <div class="thumb">
+    <!-- Si la imagen está en la misma carpeta que este HTML, se va a ver acá: -->
+    <img src="Battleground.png" alt="Battleground">
+    <span class="badge">Released</span>
+  </div>
+  <div class="card-content">
+    <h3>Game Name #1</h3>
+    <p>One or two sentences about what you built — the systems, the role you played, what makes it good.</p>
+    
+    <!-- Estilos de etiquetas y estadísticas por si tu plantilla los incluye -->
+    <div class="tags" style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+      <span class="tag" style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--surface-2); padding: 4px 8px; border-radius: 6px; color: var(--accent);">Luau</span>
+      <span class="tag" style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--surface-2); padding: 4px 8px; border-radius: 6px; color: var(--accent);">DataStore</span>
+      <span class="tag" style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--surface-2); padding: 4px 8px; border-radius: 6px; color: var(--accent);">OOP</span>
+    </div>
+    
+    <div class="card-stats" style="display: flex; gap: 16px; font-size: 0.85rem; color: var(--muted); margin-bottom: 16px;">
+      <div><b style="color: var(--text);">120K</b> visits</div>
+      <div><b style="color: var(--text);">3.2K</b> likes</div>
+    </div>
+    
+    <a href="#" class="card-link" style="color: var(--accent); font-weight: 600; font-size: 0.92rem;">Play on Roblox →</a>
+  </div>
+</article>
 
       <article class="card reveal">
         <div class="thumb">
