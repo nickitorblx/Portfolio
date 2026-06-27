@@ -236,7 +236,8 @@
     <!-- EDITÁ estos números con los tuyos -->
     <div class="stats reveal">
       <div class="stat"><div class="num">3+</div><div class="lbl">Years scripting</div></div>
-      <div class="stat"><div class="num">100%</div><div class="lbl">Luau</div></div>
+      <div class="stat"><div class="num">5</div><div class="lbl">Games shipped</div></div>
+      <div class="stat"><div class="num">100%</div><div class="lbl">Luau / strict</div></div>
     </div>
   </div>
 </section>
@@ -251,7 +252,7 @@
     <div class="about-grid">
       <div class="about-text reveal">
         <!-- EDITÁ: contá quién sos en 2-3 párrafos -->
-        <p>Hi! I'm Nick, a Roblox developer who loves taking an idea from a blank baseplate to a finished, playable game. I care about code that's readable, modular, and built to scale.</p>
+        <p>Hi! I'm Nico, a Roblox developer who loves taking an idea from a blank baseplate to a finished, playable game. I care about code that's readable, modular, and built to scale.</p>
         <p>My focus is scripting and game systems — combat, data saving, economies, UI logic — using a server-authoritative approach so games stay fair and exploit-resistant. I'm comfortable jumping into an existing project or starting one from zero.</p>
         <p>I'm always learning and open to commissions, collabs, and long-term team work. If you've got a project, let's talk.</p>
       </div>
@@ -280,11 +281,12 @@
     </div>
     <div class="skills">
       <!-- EDITÁ cada tarjeta: ícono (emoji), título y descripción -->
-      <div class="skill reveal"><div class="ico">-⚙️-</div><h3>Gameplay scripting</h3><p>Core mechanics, movement, abilities — written in clean, modular Luau.</p></div>
-      <div class="skill reveal"><div class="ico">-🛡️-</div><h3>Server-authoritative systems</h3><p>Anti-exploit architecture, remote validation, and secure data flow.</p></div>
-      <div class="skill reveal"><div class="ico">-💾-</div><h3>Data & saving</h3><p>DataStore systems, sessions, economies and cross-server messaging.</p></div>
-      <div class="skill reveal"><div class="ico">-🖥️-</div><h3>UI / UX logic</h3><p>Responsive interfaces, inventories, shops and HUDs that feel smooth.</p></div>
-      <div class="skill reveal"><div class="ico">-🧩-</div><h3>Modular OOP</h3><p>Metatable-based, reusable modules that are easy to maintain and extend.</p></div>
+      <div class="skill reveal"><div class="ico">⚙️</div><h3>Gameplay scripting</h3><p>Core mechanics, combat, movement, abilities — written in clean, modular Luau.</p></div>
+      <div class="skill reveal"><div class="ico">🛡️</div><h3>Server-authoritative systems</h3><p>Anti-exploit architecture, remote validation, and secure data flow.</p></div>
+      <div class="skill reveal"><div class="ico">💾</div><h3>Data & saving</h3><p>DataStore systems, sessions, economies and cross-server messaging.</p></div>
+      <div class="skill reveal"><div class="ico">🖥️</div><h3>UI / UX logic</h3><p>Responsive interfaces, inventories, shops and HUDs that feel smooth.</p></div>
+      <div class="skill reveal"><div class="ico">🧩</div><h3>Modular OOP</h3><p>Metatable-based, reusable modules that are easy to maintain and extend.</p></div>
+      <div class="skill reveal"><div class="ico">🚀</div><h3>Optimization</h3><p>Profiling, memory management and keeping games running at high FPS.</p></div>
     </div>
   </div>
 </section>
@@ -301,30 +303,25 @@
 
       <!-- ========= TARJETA DE PROYECTO (copiala para agregar más) ========= -->
       <article class="card reveal">
-  <div class="thumb">
-    <!-- Si la imagen está en la misma carpeta que este HTML, se va a ver acá: -->
-    <img src="Battleground.png" alt="Battleground">
-    <span class="badge">Released</span>
-  </div>
-  <div class="card-body">
-    <h3>Game Name #1</h3>
-    <p>One or two sentences about what you built — the systems, the role you played, what makes it good.</p>
-    
-    <!-- Estilos de etiquetas y estadísticas por si tu plantilla los incluye -->
-    <div class="tags" style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
-      <span class="tag" style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--surface-2); padding: 4px 8px; border-radius: 6px; color: var(--accent);">Luau</span>
-      <span class="tag" style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--surface-2); padding: 4px 8px; border-radius: 6px; color: var(--accent);">DataStore</span>
-      <span class="tag" style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--surface-2); padding: 4px 8px; border-radius: 6px; color: var(--accent);">OOP</span>
-    </div>
-    
-    <div class="card-stats" style="display: flex; gap: 16px; font-size: 0.85rem; color: var(--muted); margin-bottom: 16px;">
-      <div><b style="color: var(--text);">120K</b> visits</div>
-      <div><b style="color: var(--text);">3.2K</b> likes</div>
-    </div>
-    
-    <a href="#" class="card-link" style="color: var(--accent); font-weight: 600; font-size: 0.92rem;">Play on Roblox →</a>
-  </div>
-</article>
+        <div class="thumb">
+          <!-- Cambiá "battleground.png" por el nombre EXACTO de tu archivo de imagen (con extensión).
+               Tiene que estar en la misma carpeta que este HTML, o usá "images/battleground.png" si está en una subcarpeta. -->
+          <img src="battleground.png" alt="Battleground">
+          <span class="badge">Released</span>
+        </div>
+        <div class="card-body">
+          <h3>Battleground</h3>
+          <p>One or two sentences about what you built — the systems, the role you played, what makes it good.</p>
+          <div class="tags">
+            <span class="tag">Luau</span><span class="tag">DataStore</span><span class="tag">OOP</span>
+          </div>
+          <div class="card-stats">
+            <div><b>120K</b> visits</div>
+            <div><b>3.2K</b> likes</div>
+          </div>
+          <a href="#" class="card-link">Play on Roblox →</a>
+        </div>
+      </article>
 
       <article class="card reveal">
         <div class="thumb">
